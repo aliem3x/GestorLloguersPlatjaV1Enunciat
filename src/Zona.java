@@ -24,13 +24,67 @@ public class Zona {
      - L'atribut ombrelles s'ha d'inicialtizar buit i amb una capacitat per 20 ombrel.les.
      - L'atribut encarregats s'ha d'inicialtizar buit i amb una capacitat per 3 encarregats.
      */
-    public Zona() {
+    public Zona(String codi) {
+        this.codi = codi;
+        lloguers = new Lloguer[300];
+        velomars = new Velomar[5];
+        ombrelles = new Ombrella[20];
+        encarregats = new Encarregat[3];
         
     }
 
     /*
      Mètodes accessors. No han de ser estàtics.
      */
+
+    public String getCodi() {
+        return codi;
+    }
+
+    public void setCodi(String codi) {
+        this.codi = codi;
+    }
+
+    public Lloguer[] getLloguers() {
+        return lloguers;
+    }
+
+    public void setLloguers(Lloguer[] lloguers) {
+        this.lloguers = lloguers;
+    }
+
+    public static int getIndexLloguers() {
+        return indexLloguers;
+    }
+
+    public static void setIndexLloguers(int indexLloguers) {
+        Zona.indexLloguers = indexLloguers;
+    }
+
+    public Velomar[] getVelomars() {
+        return velomars;
+    }
+
+    public void setVelomars(Velomar[] velomars) {
+        this.velomars = velomars;
+    }
+
+    public Ombrella[] getOmbrelles() {
+        return ombrelles;
+    }
+
+    public void setOmbrelles(Ombrella[] ombrelles) {
+        this.ombrelles = ombrelles;
+    }
+
+    public Encarregat[] getEncarregats() {
+        return encarregats;
+    }
+
+    public void setEncarregats(Encarregat[] encarregats) {
+        this.encarregats = encarregats;
+    }
+    
    
     /*
      Paràmetres: cap
@@ -40,7 +94,12 @@ public class Zona {
      Retorn: La nova zona creada.
      */
     public static Zona novaZona() {
-       
+        Scanner kb = new Scanner(System.in);
+        String Icodi;
+        System.out.print("Insertar codi zona: ");
+        Icodi=kb.nextLine();
+        
+        return new Zona(Icodi);    
     }
 
     public void mostrarZona() {
@@ -77,8 +136,16 @@ public class Zona {
        de lloguers de la zona actual.
      Retorn: cap
      */
-    public void afegirLloguer() {
-
+    public void afegirLloguer(Lloguer llog) {
+         boolean trobat=false;
+        do{ 
+        int i=0; 
+            if(lloguers[i]==null){
+                lloguers[i] = llog;
+                trobat=true;
+            }
+            else i++;
+     }while(!trobat);
     }
 
     /*
@@ -90,14 +157,14 @@ public class Zona {
        no existeix"
      Retorn: cap
      */
-    public void tancarLloguer() {
-       
+    public void tancarLloguer(Lloguer llog) {
+      
     }
 
     public int seleccionarLloguer() {
         Scanner dades = new Scanner(System.in);
         System.out.println("\nCodi del lloguer?:");
-        int codi = dades.nextInt();
+        String codi = dades.nextLine();
 
         int pos = -1;
 
@@ -121,8 +188,16 @@ public class Zona {
        velomars de la zona actual.
      Retorn: cap
      */
-    public void afegirVelomar() {
-       
+    public void afegirVelomar(Velomar vel){
+         boolean trobat=false;
+        do{ 
+        int i=0; 
+            if(velomars[i]==null){
+                velomars[i] = vel;
+                trobat=true;
+            }
+            else i++;
+     }while(!trobat);
     }
 
     /*
@@ -134,8 +209,16 @@ public class Zona {
        què és la manera de treure el velomar del vector de velomars.
      Retorn: cap
      */
-    public void treureVelomar() {
-    
+    public void treureVelomar(Velomar vel) {
+        int i=0;
+        boolean trobat=false;
+        do{ 
+            if(vel.getCodi()==velomars[i].getCodi()){
+                velomars[i]=null;
+                trobat=true;
+            }
+            else i++;
+        }while(!trobat);
     }
 
     public int seleccionarVelomar(int codi) {
@@ -167,8 +250,16 @@ public class Zona {
        d'encarregats de la zona actual.
      Retorn: cap
      */
-    public void afegirEncarregat() {
-   
+    public void afegirEncarregat(Encarregat enc) {
+     boolean trobat=false;
+        do{ 
+        int i=0; 
+            if(encarregats[i]==null){
+                encarregats[i] = enc;
+                trobat=true;
+            }
+            else i++;
+     }while(!trobat);
     }
 
     /*
@@ -180,8 +271,16 @@ public class Zona {
        què és la manera de treure l'encarregat del vector d'encarregats.
      Retorn: cap
      */
-    public void treureEncarregat() {
-     
+    public void treureEncarregat(Encarregat enc) {
+       int i=0;
+        boolean trobat=false;
+        do{ 
+            if(enc.getDni()==encarregats[i].getDni()){
+                encarregats[i]=null;
+                trobat=true;
+            }
+            else i++;
+        }while(!trobat);
     }
 
     public int seleccionarEncarregat(String dni) {
@@ -213,8 +312,16 @@ public class Zona {
        d'ombrel.les de la zona actual.
      Retorn: cap
      */
-    public void afegirOmbrella() {
-    
+    public void afegirOmbrella(Ombrella omb) {
+      boolean trobat=false;
+        do{ 
+        int i=0; 
+            if(ombrelles[i]==null){
+                ombrelles[i] = omb;
+                trobat=true;
+            }
+            else i++;
+     }while(!trobat);
     }
 
     /*
@@ -226,8 +333,16 @@ public class Zona {
        què és la manera de treure l'ombrel.la del vector d'ombrel.les.
      Retorn: cap
      */
-    public void treureOmbrella() {
-      
+    public void treureOmbrella(Ombrella omb) {
+        int i=0;
+        boolean trobat=false;
+        do{ 
+            if(omb.getCodi()==ombrelles[i].getCodi()){
+                ombrelles[i]=null;
+                trobat=true;
+            }
+            else i++;
+        }while(!trobat);
     }
 
     public int seleccionarOmbrella(int codi) {
